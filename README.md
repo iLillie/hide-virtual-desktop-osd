@@ -58,4 +58,19 @@ This is to make sure you can still see the volume, and brightness on-screen disp
 ## How can I help?
 
 Would be amazing to get help on how to only hide the Virtual Desktop OSD without the debouncing.
+
 If you are willing to help out then I can recommend looking into [XAML Islands](https://blogs.windows.com/windowsdeveloper/2018/11/02/xaml-islands-a-deep-dive-part-1/), or if you can find a way to get a property with win32 API that can uniquely identify the Virtual Desktop OSD.
+
+# Showcase
+
+## Before
+
+https://github.com/user-attachments/assets/06e2672d-c8ed-4a92-b024-08fb71e93893
+
+## After
+
+https://github.com/user-attachments/assets/2c7cc86f-79ff-4369-9b8c-e1c06d052067
+
+
+
+
