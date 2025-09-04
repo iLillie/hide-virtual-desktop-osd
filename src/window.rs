@@ -3,6 +3,7 @@ use windows::Win32::UI::WindowsAndMessaging::{FindWindowExW, ShowWindow};
 
 use windows_core::w;
 
+// I don't like this, but not bothered to find another option
 static mut WINDOW: Option<HWND> = None;
 
 pub enum WindowState {
