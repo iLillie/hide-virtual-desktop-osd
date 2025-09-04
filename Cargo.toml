@@ -1,0 +1,18 @@
+[package]
+name = "hide-virtual-desktop-osd"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+windows-core = "0.58"
+windows = { version = "0.58", features = [
+  "Foundation",
+  "Foundation_Collections",
+  "implement",
+  "Win32_UI_WindowsAndMessaging",
+] }
+winvd = "0.0.48"
+debounce = "0.2.2"
+tray-icon = "0.21.1"
+winit = "0.30.12"
+image = "0.25.8"
