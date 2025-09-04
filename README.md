@@ -9,13 +9,20 @@ It also makes sure that you can still see volume, and brightness slider after it
 ### Release
 
 Download the exe file, and run it.
-(I assume Windows might be angry because no code-sign?)
+It will start as background process, and a tray icon should appear.
+(I assume Windows might complain about unsafe code)
 
 Then move it away from Downloads folder to store it somewhere else.
+You need to run it after each restart unless you add it as a startup app. 
 
-I recommend also adding it as startup app, so you don't need to manually restart it everytime.
+### Building from soure code
 
-Look at guide here: TODO
+If you are not sure about the release .exe, you can build it yourself.
+
+1. Follow [Cargo installation guide](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+2. Run `cargo build --release`
+3. Build file should be under `target/release/hide-virtual-desktop-osd.exe`
+
 
 ## Why I made this?
 

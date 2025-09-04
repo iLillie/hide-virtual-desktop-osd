@@ -25,32 +25,36 @@ pub unsafe fn update_window_state(show: WindowState) {
     };
 }
 
-pub unsafe fn initialize_window() {
+unsafe fn fetch_window() {
     unsafe {
-        WINDOW = Some(HWND::default());
+            WINDOW = Some(HWND::default());
 
-        let mut hwnd_found = HWND::default();
+            let mut hwnd_found = HWND::default();
 
-        while hwnd_found == HWND::default() {
-            hwnd_found = FindWindowExW(
-                HWND::default(),
-                hwnd_found,
-                w!("XamlExplorerHostIslandWindow"),
-                w!(""),
-            )
-            .unwrap();
-        }
-
-        while WINDOW.unwrap() == HWND::default() {
-            WINDOW = Some(
-                FindWindowExW(
-                    hwnd_found,
+            while hwnd_found == HWND::default() {
+                hwnd_found = FindWindowExW(
                     HWND::default(),
-                    w!("Windows.UI.Composition.DesktopWindowContentBridge"),
-                    w!("DesktopWindowXamlSource"),
+                    hwnd_found,
+                    w!("XamlExplorerHostIslandWindow"),
+                    w!(""),
                 )
-                .unwrap(),
-            );
+                .unwrap();
+            }
+
+            while WINDOW.unwrap() == HWND::default() {
+                WINDOW = Some(
+                    FindWindowExW(
+                        hwnd_found,
+                        HWND::default(),
+                        w!("Windows.UI.Composition.DesktopWindowContentBridge"),
+                        w!("DesktopWindowXamlSource"),
+                    )
+                    .unwrap(),
+                );
+            }
         }
-    }
+}
+
+pub unsafe fn initialize_window() {
+    unsafe { fetch_window() };
 }
