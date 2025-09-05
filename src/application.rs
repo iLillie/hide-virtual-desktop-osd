@@ -1,4 +1,3 @@
-//#![windows_subsystem = "windows"]
 use tray_icon::{
     TrayIcon, TrayIconBuilder,
     menu::{Menu, MenuEvent, MenuItem},
