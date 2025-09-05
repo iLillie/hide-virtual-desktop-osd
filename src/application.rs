@@ -5,8 +5,6 @@ use tray_icon::{
 };
 use winit::application::ApplicationHandler;
 
-use crate::window::{WindowState, initialize_window, update_window_state};
-
 #[derive(Debug)]
 pub enum UserEvent {
     TrayIconEvent(),
@@ -74,11 +72,6 @@ impl ApplicationHandler<UserEvent> for Application {
     ) {
         if winit::event::StartCause::Init == cause {
             self.tray_icon = Some(Self::new_tray_icon());
-
-            unsafe {
-                initialize_window();
-                update_window_state(WindowState::VISIBLE);
-            }
         }
     }
 

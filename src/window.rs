@@ -3,15 +3,12 @@ use windows::Win32::UI::WindowsAndMessaging::{FindWindowExW, ShowWindow};
 
 use windows_core::w;
 
-// I don't like this, but not bothered to find another option
-static mut WINDOW: Option<HWND> = None;
-
 pub enum WindowState {
     VISIBLE,
     HIDDEN,
 }
 
-pub unsafe fn update_window_state(show: WindowState) {
+pub unsafe fn update_window_state(show: WindowState, window: HWND) {
     let state = match show {
         WindowState::VISIBLE => 9,
         WindowState::HIDDEN => 6,
@@ -19,15 +16,15 @@ pub unsafe fn update_window_state(show: WindowState) {
 
     let _ = unsafe {
         ShowWindow(
-            WINDOW.unwrap(),
+            window,
             windows::Win32::UI::WindowsAndMessaging::SHOW_WINDOW_CMD(state),
         )
     };
 }
 
-unsafe fn fetch_window() {
+pub unsafe fn fetch_window() -> HWND {
     unsafe {
-            WINDOW = Some(HWND::default());
+            let mut window = HWND::default();
 
             let mut hwnd_found = HWND::default();
 
@@ -41,20 +38,18 @@ unsafe fn fetch_window() {
                 .unwrap();
             }
 
-            while WINDOW.unwrap() == HWND::default() {
-                WINDOW = Some(
+            while window == HWND::default() {
+                window =
                     FindWindowExW(
                         hwnd_found,
                         HWND::default(),
                         w!("Windows.UI.Composition.DesktopWindowContentBridge"),
                         w!("DesktopWindowXamlSource"),
                     )
-                    .unwrap(),
-                );
+                    .unwrap();
             }
+
+            return window
         }
 }
 
-pub unsafe fn initialize_window() {
-    unsafe { fetch_window() };
-}
