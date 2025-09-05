@@ -11,7 +11,7 @@ mod window;
 
 use crate::{
     application::{Application, UserEvent},
-    window::{fetch_window, update_window_state, WindowState},
+    window::{WindowState, fetch_window, update_window_state},
 };
 
 fn main() {
@@ -35,9 +35,8 @@ fn main() {
     let (tx, rx) = std::sync::mpsc::channel::<DesktopEvent>();
     let (tx2, rx2) = std::sync::mpsc::channel::<bool>();
 
-
     let _notifications_thread = listen_desktop_events(tx);
- 
+
     std::thread::spawn(|| {
         let window = unsafe { fetch_window() };
         let _ = tx2.send(true);
@@ -63,12 +62,11 @@ fn main() {
         for item in rx2 {
             let state = match item {
                 true => WindowState::VISIBLE,
-                false => WindowState::HIDDEN
+                false => WindowState::HIDDEN,
             };
 
             unsafe { update_window_state(state, window) };
         }
-
     });
 
     if let Err(err) = event_loop.run_app(&mut app) {

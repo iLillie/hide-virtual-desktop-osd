@@ -24,32 +24,30 @@ pub unsafe fn update_window_state(show: WindowState, window: HWND) {
 
 pub unsafe fn fetch_window() -> HWND {
     unsafe {
-            let mut window = HWND::default();
+        let mut window = HWND::default();
 
-            let mut hwnd_found = HWND::default();
+        let mut hwnd_found = HWND::default();
 
-            while hwnd_found == HWND::default() {
-                hwnd_found = FindWindowExW(
-                    HWND::default(),
-                    hwnd_found,
-                    w!("XamlExplorerHostIslandWindow"),
-                    w!(""),
-                )
-                .unwrap();
-            }
-
-            while window == HWND::default() {
-                window =
-                    FindWindowExW(
-                        hwnd_found,
-                        HWND::default(),
-                        w!("Windows.UI.Composition.DesktopWindowContentBridge"),
-                        w!("DesktopWindowXamlSource"),
-                    )
-                    .unwrap();
-            }
-
-            return window
+        while hwnd_found == HWND::default() {
+            hwnd_found = FindWindowExW(
+                HWND::default(),
+                hwnd_found,
+                w!("XamlExplorerHostIslandWindow"),
+                w!(""),
+            )
+            .unwrap();
         }
-}
 
+        while window == HWND::default() {
+            window = FindWindowExW(
+                hwnd_found,
+                HWND::default(),
+                w!("Windows.UI.Composition.DesktopWindowContentBridge"),
+                w!("DesktopWindowXamlSource"),
+            )
+            .unwrap();
+        }
+
+        return window;
+    }
+}
